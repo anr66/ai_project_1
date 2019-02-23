@@ -1,0 +1,5 @@
+sudo apt install python3-pip
+pip3 install scikit-learn
+pip3 install graphviz
+pip3 install matplotlib
+sudo apt-get install python3-tk
