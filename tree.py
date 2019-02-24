@@ -23,18 +23,21 @@ def case_1():
 
     #print("Data: ", data.head())
 
+    global X
     X = data.values[:, 0:1]
     Y = data.values[:, 0]
 
-    x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size = 0.3,
- random_state = 100)
+    #x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size = 0.3, random_state = 100)
 
-    clf_gini = DecisionTreeClassifier(criterion = "gini", random_state = 100, max_depth = 3, min_samples_leaf = 100)
+    #clf_gini = DecisionTreeClassifier(criterion = "gini", random_state = 100, max_depth = 3, min_samples_leaf = 100)
 
-    tree = clf_gini.fit(x_train, y_train)
+    global classifier
+    classifier = tree.DecisionTreeClassifier()
+    classifier = classifier.fit(X, Y)
+    #tree = clf_gini.fit(x_train, y_train)
 
     tree_file = open(file_str + ".model", "wb")
-    pickle.dump(tree, tree_file)
+    pickle.dump(classifier, tree_file)
     tree_file.close()
 
     print("Tree saved")
@@ -57,24 +60,32 @@ def case_2():
 	
 def case_3():
 
-	print("1: Enter new case\n")
-	print("2: Quit\n")
-	choice = input("Enter choice\n");
-	
-	if (choice == 2):
-		return
-		
-	elif (choice == 1):
-        print("Enter new data\n")
-		
+    print("1: Enter new case\n")
+    print("2: Quit\n")
+    choice = input("Enter choice\n")
+
+    if (choice == '2'):
+        return
+
+    elif (choice == '1'):
+        #new_data = input("Enter new data\n")
+        new_data = ['1','1','0','0','1']
+        label = classifier.predict(X,new_data)
+        print (label[0])
+
+	main()
 		
 	
 def case_4():
 
-    model_name = input("Enter name of model file")
+    model_name = input("Enter name of model file\n")
+    model = open(model_name, "rb")
+    print("Model opened\n")
+    case_3()
 
 def main():
 
+    print("\n\n\n")
     print("Choose an option\n")
     print("1: Learn a decision tree from training data\n")
     print("2: Save the tree\n")
