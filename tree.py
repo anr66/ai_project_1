@@ -18,10 +18,14 @@ def case_1():
     global file_str
     file_str = input("Enter the name of the data file\n")
 
+    global data
     data = pd.read_csv(file_str, sep=',')
 
     print("Length: ", len(data))
     #print("Shape: ", data.shape())
+
+    global header
+    header = data.columns.tolist()
 
     #print("Data: ", data.head())
 
@@ -88,7 +92,17 @@ def case_3():
 
     elif (choice == '1'):
 
-        new_data = input("Enter new data\n")
+
+        print(header)
+
+        item_values = list()
+        #new_data = input("Enter new data\n")
+        for item in header:
+            #item_values = input("What is the value for: ", str(item))
+            print("What is the value for ", str(item))
+            value = input(" ");
+            item_values.extend(value);
+            #print(item)
         #y_pred = classifier.predict(['0','1','1','1','1'])
 
         with open(file_str, 'a') as csv:
@@ -96,7 +110,7 @@ def case_3():
 
         data = pd.read_csv(file_str, sep=',')
 
-        print("Length: ", len(data))
+        #print("Length: ", len(data))
         #print("Shape: ", data.shape())
 
         #print("Data: ", data.head())
@@ -117,6 +131,7 @@ def case_3():
         y_pred = classifier.predict(X_test)
         #print("X_test")
         #print(X_test)
+
 
         print(confusion_matrix(y_test, y_pred))
         print(classification_report(y_test, y_pred))
